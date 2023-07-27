@@ -157,13 +157,13 @@ plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
   scale_color_manual(breaks=c("factual | col", "factual | nocol", "counter_col", "counter_nocol"),
                      values=c("factual | col"="purple", "factual | nocol"="brown", "counter_col"="green", "counter_nocol"="red")) +
   theme(legend.title=element_blank()) +
-  ylab("log adult family income") +
-  xlab("log adolescence family income") +
-  ggtitle("Great equalizer thesis") +
+  ylab("log income") +
+  xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
-  theme(legend.text=element_text(size=14)) +
-  theme(axis.title=element_text(size=14))
+  theme(legend.text=element_text(size=12)) +
+  theme(axis.title=element_text(size=12))
 
 plot_linear
 
+ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual covariances/GE",".jpg", sep=""), plot_linear, width=6, height=3.5)
 

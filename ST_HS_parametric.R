@@ -141,12 +141,14 @@ plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
   scale_color_manual(breaks=c("Y1 | G", "Y | G, D=1", "D | G"),
                      values=c("Y1 | G"="purple", "Y | G, D=1"="brown", "D | G"="green")) +
   theme(legend.title=element_blank()) +
-  ylab("log adult family income") +
-  xlab("log adolescence family income") +
-  ggtitle("Great equalizer thesis") +
+  ylab("transition log odds") +
+  xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
-  theme(legend.text=element_text(size=14)) +
-  theme(axis.title=element_text(size=14))
+  theme(legend.text=element_text(size=12)) +
+  theme(axis.title=element_text(size=12))
 
 plot_linear
+
+ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual covariances/ST_HS",".jpg", sep=""), plot_linear, width=6, height=3.5)
+
 
