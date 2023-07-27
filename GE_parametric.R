@@ -150,18 +150,19 @@ plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
 plot_smooth
 
 plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1_desc, color='factual | col'), se=FALSE, span=0.1) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0_desc, color='factual | nocol'), se=FALSE, span=0.1) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='counter_col'), se=FALSE, span=0.1) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='counter_nocol'), se=FALSE, span=0.1) +
-  scale_color_manual(breaks=c("factual | col", "factual | nocol", "counter_col", "counter_nocol"),
-                     values=c("factual | col"="purple", "factual | nocol"="brown", "counter_col"="green", "counter_nocol"="red")) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1_desc, color='Y | G, D=1'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0_desc, color='Y | G, D=0'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='Y1 | G'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='Y0 | G'), se=FALSE, span=0.1) +
+  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y1 | G", "Y0 | G"),
+                     values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y1 | G"="green", "Y0 | G"="red")) +
   theme(legend.title=element_blank()) +
   ylab("log income") +
   xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
   theme(legend.text=element_text(size=12)) +
-  theme(axis.title=element_text(size=12))
+  theme(axis.title=element_text(size=12)) +
+  coord_cartesian(xlim=c(6.6,12), expand=FALSE) 
 
 plot_linear
 

@@ -143,7 +143,8 @@ plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
   xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
   theme(legend.text=element_text(size=12)) +
-  theme(axis.title=element_text(size=12))
+  theme(axis.title=element_text(size=12)) +
+  coord_cartesian(xlim=c(6.7,12), expand=FALSE) 
 
 plot_linear
 

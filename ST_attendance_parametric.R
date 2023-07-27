@@ -115,7 +115,7 @@ overall$pvalues <- 1-abs(pnorm(overall$point/overall$se)-0.5)*2
 
 overall
 
-save(detail, file="/Users/Ang/Desktop/Research/Counterfactual covariances/ST_attendance_parametric_detail.RData")
+# save(detail, file="/Users/Ang/Desktop/Research/Counterfactual covariances/ST_attendance_parametric_detail.RData")
 
 plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
   geom_smooth(data=detail, aes(x=G, y=log_odds1, color='Y1 | G'), se=FALSE, span=0.1) +
@@ -144,7 +144,8 @@ plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
   xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
   theme(legend.text=element_text(size=12)) +
-  theme(axis.title=element_text(size=12))
+  theme(axis.title=element_text(size=12)) +
+  coord_cartesian(xlim=c(6.7,12), expand=FALSE) 
 
 plot_linear
 
