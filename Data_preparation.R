@@ -5,7 +5,7 @@ library("readr")
 library("dplyr")
 
 options(scipen=999)
-setwd("/Users/Ang/Desktop/Research/Counterfactual covariances/Data")
+setwd("/Users/Ang/Desktop/Research/Counterfactual slopes/Data")
 
 load("data.RData")
 colnames(data)
@@ -445,5 +445,12 @@ data_cleaned_mare_gradaute <- data_cleaned_mare_gradaute[,c("completion29","grad
 saveRDS(data_cleaned_mare_gradaute, file="data_cleaned_mare_gradaute.rds")
 
 
+data_cleaned_mare_all <- data[,c("HS20","attendance23","completion29","grad34","parental_income_log",
+                                                  "gender","medu","parental_presence",
+                                                  "n_sib","urban","edu_exp","AFQT","age","friend_edu_exp","rotter_score","rosenberg_irt_score",
+                                                  "sig_other_expec","foreign_lang",
+                                                  "SMSA","mother_seperate","fm_foreign_born",
+                                                  "region","m_work","race")]
 
+saveRDS(data_cleaned_mare_all, file="data_cleaned_mare_all.rds")
 
