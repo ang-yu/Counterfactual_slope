@@ -6,7 +6,7 @@ library("ggplot2")
 
 options(scipen=999)
 
-data <- readRDS("/Users/Ang/Desktop/Research/Counterfactual covariances/Data/data_cleaned_mare_gradaute.rds")
+data <- readRDS("/Users/Ang/Desktop/Research/Counterfactual slopes/Data/data_cleaned_mare_gradaute.rds")
 colMeans(is.na(data))
 
 data$completion29 <- as.numeric(data$completion29)-1
@@ -115,7 +115,7 @@ overall$pvalues <- 1-abs(pnorm(overall$point/overall$se)-0.5)*2
 
 overall
 
-# save(detail, file="/Users/Ang/Desktop/Research/Counterfactual covariances/ST_completion29_parametric_detail.RData")
+# save(detail, file="/Users/Ang/Desktop/Research/Counterfactual slopes/ST_completion29_parametric_detail.RData")
 
 plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
   geom_smooth(data=detail, aes(x=G, y=log_odds1, color='Y1 | G'), se=FALSE, span=0.1) +
@@ -133,20 +133,19 @@ plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
 plot_smooth
 
 plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1, color='Y1 | G'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1, color='Y_1 | G'), se=FALSE, span=0.1) +
   geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1_desc, color='Y | G, D=1'), se=FALSE, span=0.1) +
   geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds0, color='D | G'), se=FALSE, span=0.1) +
-  scale_color_manual(breaks=c("Y1 | G", "Y | G, D=1", "D | G"),
-                     values=c("Y1 | G"="purple", "Y | G, D=1"="brown", "D | G"="green")) +
+  scale_color_manual(breaks=c("Y_1 | G", "Y | G, D=1", "D | G"),
+                     values=c("Y_1 | G"="green", "Y | G, D=1"="purple", "D | G"="brown")) +
   theme(legend.title=element_blank()) +
   ylab("transition log odds") +
   xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
   theme(legend.text=element_text(size=12)) +
-  theme(axis.title=element_text(size=12)) +
-  coord_cartesian(xlim=c(6.7,12), expand=FALSE) 
+  theme(axis.title=element_text(size=12))
 
 plot_linear
 
-ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual covariances/ST_completion",".jpg", sep=""), plot_linear, width=6, height=3.5)
+ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual slopes/ST_completion",".jpg", sep=""), plot_linear, width=6, height=3.5)
 

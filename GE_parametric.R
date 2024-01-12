@@ -6,7 +6,7 @@ library("ggplot2")
 
 options(scipen=999)
 
-data <- readRDS("/Users/Ang/Desktop/Research/Counterfactual covariances/Data/data_cleaned_ge.rds")
+data <- readRDS("/Users/Ang/Desktop/Research/Counterfactual slopes/Data/data_cleaned_ge.rds")
 colMeans(is.na(data))
 
 table(data$completion[data$parental_income_log<log(5000)])   # very low parental income is associated with very low probability (4.5%) of college completion
@@ -130,7 +130,7 @@ overall$pvalues <- 1-abs(pnorm(overall$point/overall$se)-0.5)*2
 
 overall
 
-# save(detail, file="/Users/Ang/Desktop/Research/Counterfactual covariances/GE_parametric_detail.RData")
+# save(detail, file="/Users/Ang/Desktop/Research/Counterfactual slopes/GE_parametric_detail.RData")
 
 plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
   geom_smooth(data=detail, aes(x=G, y=IPO_D1_desc, color='factual | col'), se=FALSE, span=0.1) +
@@ -152,19 +152,52 @@ plot_smooth
 plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
   geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1_desc, color='Y | G, D=1'), se=FALSE, span=0.1) +
   geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0_desc, color='Y | G, D=0'), se=FALSE, span=0.1) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='Y1 | G'), se=FALSE, span=0.1) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='Y0 | G'), se=FALSE, span=0.1) +
-  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y1 | G", "Y0 | G"),
-                     values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y1 | G"="green", "Y0 | G"="red")) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='Y_1 | G'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='Y_0 | G'), se=FALSE, span=0.1) +
+  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+                     values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y_1 | G"="green", "Y_0 | G"="red")) +
   theme(legend.title=element_blank()) +
   ylab("log income") +
   xlab("log parental income") +
   theme(plot.title=element_text(size=17)) +
   theme(legend.text=element_text(size=12)) +
-  theme(axis.title=element_text(size=12)) +
-  coord_cartesian(xlim=c(6.6,12), expand=FALSE) 
+  theme(axis.title=element_text(size=12))
 
 plot_linear
 
-ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual covariances/GE",".jpg", sep=""), plot_linear, width=6, height=3.5)
+ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual slopes/GE",".jpg", sep=""), plot_linear, width=6, height=3.5)
+
+factual <- ggplot(detail, aes(x=G, y=Y)) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1_desc, color='Y | G, D=1'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0_desc, color='Y | G, D=0'), se=FALSE, span=0.1) +
+  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+                     values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y_1 | G"="green", "Y_0 | G"="red")) +
+  theme(legend.title=element_blank()) +
+  ylab("log income") +
+  xlab("log parental income") +
+  theme(plot.title=element_text(size=17)) +
+  theme(legend.text=element_text(size=12)) +
+  theme(axis.title=element_text(size=12))
+
+counterfactual <- ggplot(detail, aes(x=G, y=Y)) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='Y_1 | G'), se=FALSE, span=0.1) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='Y_0 | G'), se=FALSE, span=0.1) +
+  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+                     values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y_1 | G"="green", "Y_0 | G"="red")) +
+  theme(legend.title=element_blank()) +
+  ylab("log income") +
+  xlab("log parental income") +
+  theme(plot.title=element_text(size=17)) +
+  theme(legend.text=element_text(size=12)) +
+  theme(axis.title=element_text(size=12))
+
+ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual slopes/GE_factual",".jpg", sep=""), factual, width=6, height=3.5)
+ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual slopes/GE_counterfactual",".jpg", sep=""), counterfactual, width=6, height=3.5)
+
+
+
+
+
+
+
 
