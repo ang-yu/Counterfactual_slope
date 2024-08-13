@@ -75,7 +75,7 @@ DgivenPG.Model <- stats::glm(stats::as.formula(paste(D, paste(G_v, collapse="+")
 
 DgivenG.Pred_P1 <- stats::predict(DgivenPG.Model, newdata=data, type="response")
 
-IPO_P1 <- data[,D]/PgivenG.Pred/mean(data[,D]/PgivenG.Pred)*(data[,Y]-DgivenG.Pred_P1) + DgivenG.Pred_P1
+IPO_P1 <- data[,P]/PgivenG.Pred/mean(data[,P]/PgivenG.Pred)*(data[,D]-DgivenG.Pred_P1) + DgivenG.Pred_P1
 
 
 phi0 <- cov((IPO_P1-DgivenG.Pred_P1)/(DgivenG.Pred_P1*(1-DgivenG.Pred_P1)) + log(DgivenG.Pred_P1/(1-DgivenG.Pred_P1)), data[,G])/var(data[,G])
