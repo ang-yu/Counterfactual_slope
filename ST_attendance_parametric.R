@@ -120,11 +120,15 @@ overall$pvalues <- 1-abs(pnorm(overall$point/overall$se)-0.5)*2
 overall
 
 plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=log_odds1, color='Y1 | G'), se=FALSE, span=1.5) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=log_odds1_desc, color='Y | G, D=1'), se=FALSE, span=1.5) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=log_odds0, color='D | G'), se=FALSE, span=1.5) +
-  scale_color_manual(breaks=c("Y1 | G", "Y | G, D=1", "D | G"),
-                     values=c("Y1 | G"="green", "Y | G, D=1"="purple", "D | G"="brown")) +
+  geom_smooth(method="loess", data=detail, aes(x=G, y=log_odds1, color='Y_1 | G', linetype='Y_1 | G'), se=FALSE, span=1.5) +
+  geom_smooth(method="loess", data=detail, aes(x=G, y=log_odds1_desc, color='Y | G, D=1', linetype='Y | G, D=1'), se=FALSE, span=1.5) +
+  geom_smooth(method="loess", data=detail, aes(x=G, y=log_odds0, color='D | G', linetype='D | G'), se=FALSE, span=1.5) +
+  scale_color_manual(name="Legend",
+                     breaks=c("Y | G, D=1","Y_1 | G","D | G"),
+                     values=c("Y | G, D=1"="purple", "Y_1 | G"="green", "D | G"="brown")) +
+  scale_linetype_manual(name="Legend",
+                        breaks=c("Y | G, D=1","Y_1 | G","D | G"),
+                        values=c("Y | G, D=1"="solid", "Y_1 | G"="dotted", "D | G"="dashed")) +
   theme(legend.title=element_blank()) +
   ylab("Transition log odds") +
   xlab("Log parental income") +
@@ -137,11 +141,15 @@ plot_smooth
 ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual slopes/ST_attendance_smooth",".jpg", sep=""), plot_smooth, width=6, height=3.5)
 
 plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1, color='Y_1 | G'), se=FALSE) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1_desc, color='Y | G, D=1'), se=FALSE) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds0, color='D | G'), se=FALSE) +
-  scale_color_manual(breaks=c("Y_1 | G", "Y | G, D=1", "D | G"),
-                     values=c("Y_1 | G"="green", "Y | G, D=1"="purple", "D | G"="brown")) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1, color='Y_1 | G', linetype='Y_1 | G'), se=FALSE) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds1_desc, color='Y | G, D=1', linetype='Y | G, D=1'), se=FALSE) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=log_odds0, color='D | G', linetype='D | G'), se=FALSE) +
+  scale_color_manual(name="Legend",
+                     breaks=c("Y | G, D=1","Y_1 | G","D | G"),
+                     values=c("Y | G, D=1"="purple", "Y_1 | G"="green", "D | G"="brown")) +
+  scale_linetype_manual(name="Legend",
+                        breaks=c("Y | G, D=1","Y_1 | G","D | G"),
+                        values=c("Y | G, D=1"="solid", "Y_1 | G"="dotted", "D | G"="dashed")) +
   theme(legend.title=element_blank()) +
   ylab("Transition log odds") +
   xlab("Log parental income") +

@@ -131,12 +131,16 @@ overall$pvalues <- 1-abs(pnorm(overall$point/overall$se)-0.5)*2
 overall
 
 plot_smooth <- ggplot(detail, aes(x=G, y=Y)) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=IPO_D1_desc, color='Y | G, D=1'), se=FALSE, span=1.5) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=IPO_D0_desc, color='Y | G, D=0'), se=FALSE, span=1.5) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=IPO_D1, color='Y_1 | G'), se=FALSE, span=1.5) +
-  geom_smooth(method="loess", data=detail, aes(x=G, y=IPO_D0, color='Y_0 | G'), se=FALSE, span=1.5) +
-  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+  geom_smooth(method="loess", aes(x=G, y=IPO_D1_desc, color='Y | G, D=1', linetype='Y | G, D=1'), se=FALSE, span=1.5) +
+  geom_smooth(method="loess", aes(x=G, y=IPO_D0_desc, color='Y | G, D=0', linetype='Y | G, D=0'), se=FALSE, span=1.5) +
+  geom_smooth(method="loess", aes(x=G, y=IPO_D1, color='Y_1 | G', linetype='Y_1 | G'), se=FALSE, span=1.5) +
+  geom_smooth(method="loess", aes(x=G, y=IPO_D0, color='Y_0 | G', linetype='Y_0 | G'), se=FALSE, span=1.5) +
+  scale_color_manual(name="Legend", 
+                     breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
                      values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y_1 | G"="green", "Y_0 | G"="red")) +
+  scale_linetype_manual(name="Legend",
+                        breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+                        values=c("Y | G, D=1"="solid", "Y | G, D=0"="dashed", "Y_1 | G"="dotted", "Y_0 | G"="dotdash")) +
   theme(legend.title=element_blank()) +
   ylab("Log adult family income") +
   xlab("Log adolescence family income") +
@@ -149,12 +153,16 @@ plot_smooth
 ggsave(paste("/Users/Ang/Desktop/Research/Counterfactual slopes/GE_smooth",".jpg", sep=""), plot_smooth, width=6, height=3.5)
 
 plot_linear <- ggplot(detail, aes(x=G, y=Y)) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1_desc, color='Y | G, D=1'), se=FALSE) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0_desc, color='Y | G, D=0'), se=FALSE) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='Y_1 | G'), se=FALSE) +
-  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='Y_0 | G'), se=FALSE) +
-  scale_color_manual(breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1_desc, color='Y | G, D=1', linetype='Y | G, D=1'), se=FALSE) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0_desc, color='Y | G, D=0', linetype='Y | G, D=0'), se=FALSE) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D1, color='Y_1 | G', linetype='Y_1 | G'), se=FALSE) +
+  geom_smooth(method="lm", data=detail, aes(x=G, y=IPO_D0, color='Y_0 | G', linetype='Y_0 | G'), se=FALSE) +
+  scale_color_manual(name="Legend", 
+                     breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
                      values=c("Y | G, D=1"="purple", "Y | G, D=0"="brown", "Y_1 | G"="green", "Y_0 | G"="red")) +
+  scale_linetype_manual(name="Legend",
+                        breaks=c("Y | G, D=1", "Y | G, D=0", "Y_1 | G", "Y_0 | G"),
+                        values=c("Y | G, D=1"="solid", "Y | G, D=0"="dashed", "Y_1 | G"="dotted", "Y_0 | G"="dotdash")) +
   theme(legend.title=element_blank()) +
   ylab("Log income") +
   xlab("Log parental income") +
