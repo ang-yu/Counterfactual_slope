@@ -9,7 +9,7 @@ The code for analysis is arranged as follows.
 | Table C1                       | ST_HS_linear_parametric, ST_attendance_linear_parametric, ST_completion_linear_parametric
 | Table C2                       | ST_attendance_conditional_parametric, ST_completion_conditional_parametric
 
-Also, the file name follows this convention: GE=the great equalizer thesis; ST_HS=the school transition thesis when D is high school graduation; ST_attendance=the school transition thesis when D is college attendance; ST_completion=the school transition thesis when D is college degree.
+Also, the file names follow this convention: GE=the great equalizer thesis; ST_HS=the school transition thesis when D is high school graduation; ST_attendance=the school transition thesis when D is college attendance; ST_completion=the school transition thesis when D is college degree.
 
 
 
